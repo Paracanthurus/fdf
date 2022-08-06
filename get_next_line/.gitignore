@@ -1,0 +1,8 @@
+gnlTester/
+main.c
+*.txt
+*.sh
+*.pdf
+*.a
+*.o
+.DS_Store

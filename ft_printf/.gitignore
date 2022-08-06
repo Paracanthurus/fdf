@@ -1,0 +1,8 @@
+*.pdf
+printfTester/
+main.c
+*.o
+*.a
+a.out
+.vscode/
+42tools/

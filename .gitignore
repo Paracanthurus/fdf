@@ -1,0 +1,7 @@
+.DS_STORE
+fdf
+*.a
+*.o
+pdf/
+.vscode
+42tools/
