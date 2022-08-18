@@ -6,7 +6,7 @@
 #    By: aokubo <aokubo@student.42tokyo.jp>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/07/21 06:13:46 by aokubo            #+#    #+#              #
-#    Updated: 2022/08/07 01:04:20 by aokubo           ###   ########.fr        #
+#    Updated: 2022/08/19 05:57:13 by aokubo           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,31 +46,76 @@ SRC		= main.c\
 # SRCS	= $(addprefix{$(SRC_DIR)/, $(SRC)})
 SRCS	= $(SRC)
 
-OBJ_DIR = obj
+# OBJ_DIR = obj
 # OBJS	= $(addprefix{$(SRC_DIR)/, $(SRC:%.c=%.o)})
 OBJS	= $(SRCS:%.c=%.o)
-# B_SRCS	=
-# B_OBJS	= $(B_SRCS:.c=.o)
-# ifdef BONUS
-#  OBJS += $(B_OBJS)
-# endif
+B_SRC	= main_bonus.c\
+			ft_abs_bonus.c\
+			ft_atox_bonus.c\
+			ft_calcolor_dx_bonus.c\
+			ft_calcolor_dy_bonus.c\
+			ft_calline_dx_bonus.c\
+			ft_calline_dy_bonus.c\
+			ft_exit_bonus.c\
+			ft_col_init_bonus.c\
+			ft_drawimg_bonus.c\
+			ft_dtoi_point_bonus.c\
+			ft_fitting_bonus.c\
+			ft_getlimit_bonus.c\
+			ft_gnl_and_split_bonus.c\
+			ft_initlimit_bonus.c\
+			ft_isdigit_hex_bonus.c\
+			ft_isspace_bonus.c\
+			ft_itorgb_bonus.c\
+			ft_key_hook_bonus.c\
+			ft_opfile_bonus.c\
+			ft_pointadd_back_bonus.c\
+			ft_pointclear_bonus.c\
+			ft_pointlast_bonus.c\
+			ft_pointnew_bonus.c\
+			ft_putline_bonus.c\
+			ft_putline_map_bonus.c\
+			ft_putpixel_bonus.c\
+			ft_readcolor_bonus.c\
+			ft_readmap_bonus.c\
+			ft_readpoint_bonus.c\
+			ft_rgbtoi_bonus.c\
+			ft_transform_bonus.c\
+\
+			ft_pointmap_bonus.c
+B_DIR	= bonus/
+B_SRCS	= $(addprefix $(B_DIR), $(B_SRC))
+B_OBJS	= $(B_SRCS:.c=.o)
+ifdef BONUS
+ OBJS = $(B_OBJS)
+endif
 CC		= gcc
-CFLAGS	= -Wall -Wextra -Werror
+# CFLAGS	= -Wall -Wextra -Werror
 
 INCLUDE	= -I/usr/X11/include
 
 MLXFLAG	= -framework OpenGL -framework AppKit
 
-LIB		=  -Lft_printf -lftprintf -Lget_next_line -lgnl -Lminilibx-linux -lmlx_Darwin -L/usr/X11R6/lib -lX11 -lXext
+LIBGNL	= get_next_line/libgnl.a
+LIBPRF	= ft_printf/libftprintf.a
+LIBMLX	= minilibx-linux/libmlx_Darwin.a
+LIBX11	= -L/usr/X11R6/lib -lX11 -lXext
+
+LIB		= $(LIBGNL) $(LIBPRF) $(LIBMLX)
+
 
 all:		$(NAME)
 
 $(NAME):	$(LIB) $(OBJS)
-			$(CC) -o $@ $(MLXFLAG) $(INCLUDE) $^
+			$(CC) -o $@ $(MLXFLAG) $(INCLUDE) $(LIBX11) $^
 
-$(LIB):
+$(LIBGNL):
 			make bonus -C get_next_line
-			make -C ft_printf
+
+$(LIBPRF):
+			make bonus -C ft_printf
+
+$(LIBMLX):
 			make -C minilibx-linux
 
 .c.o:

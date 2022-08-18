@@ -6,7 +6,7 @@
 /*   By: aokubo <aokubo@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 09:52:53 by aokubo            #+#    #+#             */
-/*   Updated: 2022/08/07 01:15:24 by aokubo           ###   ########.fr       */
+/*   Updated: 2022/08/19 06:16:22 by aokubo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include"../minilibx-linux/mlx_int.h"
 # include"../minilibx-linux/mlx.h"
 # include"../get_next_line/get_next_line_bonus.h"
-# include"../ft_printf/ft_printf.h"
+# include"../ft_printf/bonus/ft_printf_bonus.h"
 
 # ifndef X
 #  define X 960
@@ -37,6 +37,19 @@ typedef struct	s_data {
 	int		line_length;
 	int		endian;
 }				t_data;
+
+typedef struct	s_param {
+	int		mode;
+}				t_param;
+
+typedef struct	s_vars {
+	void	*mlx;
+	void	*mlx_win;
+	t_data	img;
+	t_list	*map0;
+	t_list	*map;
+	t_param	param;
+}				t_vars;
 
 typedef struct	s_point {
 	double			x;
@@ -61,10 +74,10 @@ typedef struct	s_limit {
 }				t_limit;
 
 typedef struct	s_color {
-	int t;
-	int	r;
-	int	g;
-	int	b;
+	unsigned char	t;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 }				t_color;
 
 int		ft_isspace(char c);
@@ -76,9 +89,9 @@ void	ft_calline_dx(t_point_int *point, t_point_int *s, t_point_int *t,
 						int *err);
 void	ft_calline_dy(t_point_int *point, t_point_int *s, t_point_int *t,
 						int *err);
-int		ft_click_x_hook();
+int		ft_exit(t_vars *vars);
 t_point	**ft_col_init(t_list *map);
-int		ft_drawimg(t_data *img, t_list **map);
+int		ft_drawimg(t_data *img, t_list *map, t_list *map0, t_param *param);
 void	ft_dtoi_point(t_point_int *p, t_point *p_dbl);
 void	ft_fitting(t_list *map, t_limit *limit);
 void	ft_getlimit(t_list *map, t_limit *limit);
@@ -86,8 +99,8 @@ char	**ft_gnl_and_split(int fd, char c);
 int		ft_isdigit_hex(int c);
 int		ft_isspace(char c);
 void	ft_itorgb(t_color *rgb, int color);
-// int		ft_key_hook(int key,void *p);
-int		ft_key_hook(int key);
+int		ft_key_hook(int key, t_vars *vars);
+// int		ft_key_hook(int key);
 int		ft_opfile(int argc, char **argv, t_list **map);
 void	ft_pointadd_back(t_point **lst, t_point *new);
 void	ft_pointclear(void *point);
@@ -100,7 +113,10 @@ int		ft_readcolor(char *str);
 int		ft_readmap(t_list **map, int fd);
 int		ft_readpoint(t_point **point, char **z, size_t y, size_t *x0);
 int		ft_rgbtoi(t_color *rgb);
-void	ft_transform(t_list *map);
+void	ft_transform(t_list *map, t_list *map0, t_param *param);
+
+
+t_point	*ft_pointcpy(t_point *point);
 
 
 #endif

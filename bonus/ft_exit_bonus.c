@@ -1,41 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_readmap_bonus.c                                 :+:      :+:    :+:   */
+/*   ft_exit_bonus.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aokubo <aokubo@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/21 13:35:56 by aokubo            #+#    #+#             */
-/*   Updated: 2022/08/19 05:41:42 by aokubo           ###   ########.fr       */
+/*   Created: 2022/07/21 22:45:54 by aokubo            #+#    #+#             */
+/*   Updated: 2022/08/19 05:56:51 by aokubo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include"fdf_bonus.h"
 
-int	ft_readmap(t_list **map, int fd)
+int	ft_exit(t_vars *vars)
 {
-	char	**z;
-	t_point	*point;
-	size_t	y;
-	size_t	x0;
+	mlx_destroy_image(vars->mlx, vars->img.img);
+	mlx_destroy_window(vars->mlx, vars->mlx_win);
+	ft_lstclear(&vars->map, ft_pointclear);
+	ft_lstclear(&vars->map0, ft_pointclear);
 
-	*map = NULL;
-	if (fd == -1)
-		return (FAILURE);
-	x0 = SIZE_T_MAX;
-	y = 0;
-	errno = 0;
-	while (true)
-	{
-		z = ft_gnl_and_split(fd, ' ');
-		if (z == NULL)
-			break ;
-		if (!ft_readpoint(&point, z, y, &x0))
-			return (FAILURE);
-		ft_lstadd_back(map, ft_lstnew(point));
-		y++;
-	}
-	if (errno)
-		return (FAILURE);
-	return (SUCCESS);
+	// メモリリーク確認
+
+	system("leaks fdf");
+	exit(EXIT_SUCCESS);
 }

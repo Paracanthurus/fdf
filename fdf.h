@@ -6,7 +6,7 @@
 /*   By: aokubo <aokubo@student.42tokyo.jp>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/21 09:52:53 by aokubo            #+#    #+#             */
-/*   Updated: 2022/08/07 00:53:45 by aokubo           ###   ########.fr       */
+/*   Updated: 2022/08/19 03:19:52 by aokubo           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include"minilibx-linux/mlx_int.h"
 # include"minilibx-linux/mlx.h"
 # include"get_next_line/get_next_line_bonus.h"
-# include"ft_printf/ft_printf.h"
+# include"ft_printf/bonus/ft_printf_bonus.h"
 
 # ifndef X
 #  define X 960
@@ -61,10 +61,10 @@ typedef struct	s_limit {
 }				t_limit;
 
 typedef struct	s_color {
-	int t;
-	int	r;
-	int	g;
-	int	b;
+	unsigned char	t;
+	unsigned char	r;
+	unsigned char	g;
+	unsigned char	b;
 }				t_color;
 
 int		ft_isspace(char c);
